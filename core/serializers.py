@@ -3,5 +3,5 @@ from .models import FeedLog
 
 class FeedLogSerializer(serializers.ModelSerializer):
     class Meta:
-        model=FeedLog
-        field='__all__'
+        model = FeedLog
+        fields = '__all__'
