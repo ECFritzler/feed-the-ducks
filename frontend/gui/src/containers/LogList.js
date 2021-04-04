@@ -9,6 +9,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 class LogList extends React.Component {
 
@@ -25,25 +27,25 @@ class LogList extends React.Component {
   }
   render(){
     return(
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell> Date Fed </TableCell>
-              <TableCell> Time Fed </TableCell>
-              <TableCell> Location </TableCell>
-              <TableCell> Food Type </TableCell>
-              <TableCell> Food Quantity </TableCell>
-              <TableCell> Number of Ducks </TableCell>
-            </TableRow>
-          </TableHead>
-
-            <Logs data={this.state.logs} />
-          
-
-
-        </Table>
-      </TableContainer>
+      <Grid
+        container
+      >
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell> Date Fed </TableCell>
+                <TableCell> Time Fed </TableCell>
+                <TableCell> Location </TableCell>
+                <TableCell> Food Type </TableCell>
+                <TableCell> Food Quantity </TableCell>
+                <TableCell> Number of Ducks </TableCell>
+              </TableRow>
+            </TableHead>
+              <Logs data={this.state.logs} />
+          </Table>
+        </TableContainer>
+      </Grid>
     )
   }
 }
