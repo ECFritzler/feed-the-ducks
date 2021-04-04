@@ -6,15 +6,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-
-
-
 export default function Logs(props){
 
   return(
     <TableBody>
-
-
       {console.log(props)}
       {props.data.map(feed_log => {
         return(
@@ -28,7 +23,6 @@ export default function Logs(props){
             </TableRow>
         )
       })}
-
       </TableBody>
   )
 }
