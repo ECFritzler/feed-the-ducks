@@ -1,5 +1,7 @@
 import React from 'react';
-import Log from '../components/Log.js'
+import axios from 'axios';
+
+import Logs from '../components/Logs.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +11,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 class LogList extends React.Component {
+
+  state = {
+    logs:[]
+  }
+  componentDidMount() {
+    axios.get('http://127.0.0.1:8000/api/core/')
+      .then(res =>{
+          this.setState({
+            logs: res.data
+          });
+      })
+  }
   render(){
     return(
       <TableContainer>
@@ -23,9 +37,9 @@ class LogList extends React.Component {
               <TableCell> Number of Ducks </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
 
-          </TableBody>
+            <Logs data={this.state.logs} />
+          
 
 
         </Table>
