@@ -50,7 +50,7 @@ export default function CustomLayout(){
     </AppBar>
     <main>
       <Container maxWidth="lg">
-        Hello World
+        
       </Container>
     </main>
     </div>
