@@ -14,7 +14,6 @@ export default function Logs(props){
       {props.data.map(feed_log => {
         return(
             <TableRow>
-              <TableCell>{feed_log.feed_date}</TableCell>
               <TableCell>{feed_log.feed_time}</TableCell>
               <TableCell>{feed_log.location}</TableCell>
               <TableCell>{feed_log.food_type}</TableCell>

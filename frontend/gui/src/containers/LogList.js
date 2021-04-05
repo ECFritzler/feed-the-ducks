@@ -34,7 +34,6 @@ class LogList extends React.Component {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell> Date Fed </TableCell>
                 <TableCell> Time Fed </TableCell>
                 <TableCell> Location </TableCell>
                 <TableCell> Food Type </TableCell>
