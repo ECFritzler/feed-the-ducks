@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
@@ -35,8 +37,12 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomLayout(){
   const classes = useStyles();
   const [modal, toggleModal] = useState(false);
-  const [data, setData] = useState([]);
-
+  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+    //  Authorization: `Token ${token}`,
+    };
 
   const showModal = () => {
     toggleModal(true);
@@ -44,6 +50,21 @@ export default function CustomLayout(){
 
   const hideModal = () =>{
     toggleModal(false);
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    toggleModal(false);
+    const postObject={
+      feed_time: event.target.elements.time.value,
+      location: event.target.elements.location.value,
+      food_type: event.target.elements.food_type.value,
+      food_quantity: event.target.elements.food_quantity.value,
+      number_of_ducks: event.target.elements.num_ducks.value,
+    }
+
+    console.log(postObject)
+    axios.post('http://127.0.0.1:8000/api/core/',postObject);
   }
 
   return(
@@ -70,7 +91,7 @@ export default function CustomLayout(){
             <Button onClick={showModal} className={classes.logButton} color="inherit" >
               Log Data
             </Button>
-            {console.log(modal)}
+
           </Grid>
 
         </Grid>
@@ -79,15 +100,15 @@ export default function CustomLayout(){
     <main>
       <Container maxWidth="lg">
         <LogModal show={modal} handleClose={hideModal}>
-        <form className={classes.textfields} noValidate autoComplete="off">
-          <TextField type="time" id="time" label="Time" />
-          <TextField id="location" label="Location" />
-          <TextField id="food-type" label="Food Type" />
-          <TextField id="food-quantity" label="Quantity of Food" />
-          <TextField type="number" id="number-of-ducks" label="Number of Ducks" />
-          <Button className={classes.submitButton}>
+        <form onSubmit={handleSubmit} className={classes.textfields} noValidate autoComplete="off">
+          <TextField type="time" name="time" label="Time" />
+          <TextField name="location" label="Location" />
+          <TextField name="food_type" label="Food Type" />
+          <TextField name="food_quantity" label="Quantity of Food" />
+          <TextField type="number" name="num_ducks" label="Number of Ducks" />
+          <button htmlType="submit" className={classes.submitButton}>
             Submit Data
-            </Button>
+            </button>
           </form>
         </LogModal>
       </Container>
