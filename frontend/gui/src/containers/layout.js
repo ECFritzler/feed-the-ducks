@@ -36,13 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomLayout(){
   const classes = useStyles();
-  const [modal, toggleModal] = useState(false);
-  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-    axios.defaults.xsrfCookieName = "csrftoken";
-    axios.defaults.headers = {
-      "Content-Type": "application/json",
-    //  Authorization: `Token ${token}`,
-    };
+  const [modal, toggleModal] = useState(false)
 
   const showModal = () => {
     toggleModal(true);
@@ -99,6 +93,7 @@ export default function CustomLayout(){
     </AppBar>
     <main>
       <Container maxWidth="lg">
+
         <LogModal show={modal} handleClose={hideModal}>
         <form onSubmit={handleSubmit} className={classes.textfields} noValidate autoComplete="off">
           <TextField type="time" name="time" label="Time" />
