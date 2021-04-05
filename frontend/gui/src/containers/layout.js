@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-export default function CustomLayout(){
+export default function CustomLayout({children}){
   const classes = useStyles();
   const [modal, toggleModal] = useState(false)
 
@@ -93,7 +93,7 @@ export default function CustomLayout(){
     </AppBar>
     <main>
       <Container maxWidth="lg">
-
+        {children}
         <LogModal show={modal} handleClose={hideModal}>
         <form onSubmit={handleSubmit} className={classes.textfields} noValidate autoComplete="off">
           <TextField type="time" name="time" label="Time" />

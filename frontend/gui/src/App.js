@@ -5,9 +5,9 @@ import LogList from './containers/LogList.js'
 function App() {
   return (
     <div className="App">
-        <CustomLayout/>
-        <LogList/>
-
+        <CustomLayout>
+          <LogList/>
+        </CustomLayout>
     </div>
   );
 }
