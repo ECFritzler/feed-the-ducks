@@ -16,6 +16,7 @@ import LogModal from '../components/LogModal.js'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    color: 'black',
   },
   logButton: {
     marginRight: theme.spacing(2),
@@ -27,9 +28,13 @@ const useStyles = makeStyles((theme) => ({
     width: 200,
   },
   submitButton:{
+    marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: 150,
+    height: 50,
+    border:'none',
+    background:'#FFFF99',
   },
 
 }))
@@ -37,18 +42,14 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomLayout({children}){
   const classes = useStyles();
   const [modal, toggleModal] = useState(false)
-
   const showModal = () => {
     toggleModal(true);
   }
-
   const hideModal = () =>{
     toggleModal(false);
   }
-
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    toggleModal(false);
     const postObject={
       feed_time: event.target.elements.time.value,
       location: event.target.elements.location.value,
@@ -57,13 +58,20 @@ export default function CustomLayout({children}){
       number_of_ducks: event.target.elements.num_ducks.value,
     }
 
+    if((postObject.location || postObject.food_type
+      || postObject.food_quantity || postObject.number_of_ducks) === ""){
+        return(alert("Some fields are missing data"))
+      }
+    toggleModal(false);
+
     console.log(postObject)
     axios.post('http://127.0.0.1:8000/api/core/',postObject);
+    window.location.reload(true);
   }
 
   return(
     <div className={classes.root}>
-    <AppBar position="static">
+    <AppBar position="sticky" style={{ background: '#FFFF99' }}>
       <Toolbar>
         <Grid
           container
@@ -73,7 +81,7 @@ export default function CustomLayout({children}){
           spacing={1}>
 
           <Grid item xs={2} spacing={9}>
-            <Typography>
+            <Typography variant="h5" color='textPrimary'>
                 Feed The Ducks
             </Typography>
           </Grid>
@@ -82,12 +90,10 @@ export default function CustomLayout({children}){
           <Grid item xs={9}/>
 
           <Grid item xs={1}>
-            <Button onClick={showModal} className={classes.logButton} color="inherit" >
+            <Button onClick={showModal} className={classes.logButton} >
               Log Data
             </Button>
-
           </Grid>
-
         </Grid>
       </Toolbar>
     </AppBar>
@@ -95,8 +101,8 @@ export default function CustomLayout({children}){
       <Container maxWidth="lg">
         {children}
         <LogModal show={modal} handleClose={hideModal}>
-        <form onSubmit={handleSubmit} className={classes.textfields} noValidate autoComplete="off">
-          <TextField type="time" name="time" label="Time" />
+        <form onSubmit={handleSubmit} className={classes.textfields} autoComplete="off">
+          <TextField type="time" defaultValue="12:00" name="time" label="Time" />
           <TextField name="location" label="Location" />
           <TextField name="food_type" label="Food Type" />
           <TextField name="food_quantity" label="Quantity of Food" />
